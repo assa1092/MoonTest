@@ -1,0 +1,9 @@
+INDEX VERSION 1.131
+C:\Users\ACE\sts-workspace\.metadata\.plugins\org.eclipse.jst.jsp.core\jspsearch\3120742505.index
+\testStudy\src\main\java
+C:\Users\ACE\sts-workspace\.metadata\.plugins\org.eclipse.jst.jsp.core\jspsearch\1252191858.index
+\testBoard\src\main\java
+C:\Users\ACE\sts-workspace\.metadata\.plugins\org.eclipse.jst.jsp.core\jspsearch\3217611804.index
+\testProject\src\main\java
+C:\Users\ACE\sts-workspace\.metadata\.plugins\org.eclipse.jst.jsp.core\jspsearch\1998278471.index
+\testBoard\src\main\java

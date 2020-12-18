@@ -1,0 +1,22 @@
+package kr.co.dao;
+
+import javax.inject.Inject;
+
+import org.apache.ibatis.session.SqlSession;
+import org.springframework.stereotype.Repository;
+
+@Repository
+public class BoardDAOImpl implements BoardDAO{
+	
+	@Inject
+	private SqlSession sqlSession;
+
+	// 게시글 작성
+	@Override
+	public void write(BoardDAO boardVO) {
+		sqlSession.insert("boardMapper.insert", boardVO);
+		
+	}
+	
+
+}

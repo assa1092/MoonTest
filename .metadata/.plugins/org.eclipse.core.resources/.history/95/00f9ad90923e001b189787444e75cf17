@@ -1,0 +1,5 @@
+package kr.co.servie;
+
+public interface BoardService {
+
+}
