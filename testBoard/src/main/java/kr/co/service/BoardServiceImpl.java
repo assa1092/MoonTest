@@ -49,4 +49,9 @@ public class BoardServiceImpl implements BoardService {
 		return dao.list(to);
 	}
 
+	@Override
+	public List<BoardVO> searchList(String searchType, String keyword) {
+		return dao.searchList(searchType, keyword);
+	}
+
 }

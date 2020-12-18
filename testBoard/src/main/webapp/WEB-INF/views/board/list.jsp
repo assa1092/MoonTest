@@ -21,7 +21,6 @@
 .th-center {
 	text-align: center;
 }
-
 </style>
 
 </head>
@@ -45,7 +44,8 @@
 					class="btn btn-info">글쓰기</button>
 				<!-- <a href="/board/writeView">글쓰기</a> -->
 			</div>
-			<form action="/board/list" method="post" role="form">
+			<!-- <form action="/board/list" method="post" role="form"> -->
+			<div class="row">
 				<table class="table table-hober">
 					<thead>
 						<tr>
@@ -58,20 +58,15 @@
 					<tbody>
 						<c:forEach items="${list }" var="list">
 							<tr>
-								<td class="th-center">
-									<c:out value="${list.bno}"></c:out>
+								<td class="th-center"><c:out value="${list.bno}"></c:out></td>
+								<td class="th-center"><a
+									href="/board/readView/${list.bno }"> <c:out
+											value="${list.title}"></c:out>
+								</a></td>
+								<td class="th-center"><c:out value="${list.writer}"></c:out>
 								</td>
-								<td class="th-center">
-									<a href="/board/readView/${list.bno }">
-										<c:out value="${list.title}"></c:out>
-									</a>
-								</td>
-								<td class="th-center">
-									<c:out value="${list.writer}"></c:out>
-								</td>
-								<td class="th-center">
-									<fmt:formatDate	value="${list.regdate}" pattern="yyyy-MM-dd" />
-								</td>
+								<td class="th-center"><fmt:formatDate
+										value="${list.regdate}" pattern="yyyy-MM-dd" /></td>
 							</tr>
 						</c:forEach>
 					</tbody>
@@ -81,37 +76,56 @@
 
 				<!-- 페이징 처리 -->
 				<div align="center">
-				<ul class="pagination justify-content-center" >
-					<c:if test="${to.curPage != 1 }">
-						<li class="page-item">
-							<a class="page-link" href="/board/list?curPage=${(to.curPage-1) >0 ? (to.curPage-1) : 1} ">&laquo;</a>
-						</li>
-					</c:if>
-
-					<c:forEach begin="${to.beginPageNum}" end="${to.stopPageNum}" var="idx">
-
-						<c:if test="${to.curPage == idx }">
-							<li class="page-item active">
-								<a class="page-link" href="/board/list?curPage=${idx}">${idx}</a>
+					<ul class="pagination justify-content-center">
+						<c:if test="${to.curPage != 1 }">
+							<li class="page-item"><a class="page-link"
+								href="/board/list?curPage=${(to.curPage-1) >0 ? (to.curPage-1) : 1} ">&laquo;</a>
 							</li>
 						</c:if>
 
-						<c:if test="${to.curPage != idx }">
-							<li class="page-item">
-								<a class="page-link" href="/board/list?curPage=${idx}">${idx}</a>
+						<c:forEach begin="${to.beginPageNum}" end="${to.stopPageNum}"
+							var="idx">
+
+							<c:if test="${to.curPage == idx }">
+								<li class="page-item active"><a class="page-link"
+									href="/board/list?curPage=${idx}">${idx}</a></li>
+							</c:if>
+
+							<c:if test="${to.curPage != idx }">
+								<li class="page-item"><a class="page-link"
+									href="/board/list?curPage=${idx}">${idx}</a></li>
+							</c:if>
+
+						</c:forEach>
+						<c:if test="${to.curPage != to.totalPage}">
+							<li class="page-item"><a class="page-link"
+								href="/board/list?curPage=${(to.curPage+1) < to.totalPage? (to.curPage+1) : to.totalPage }">&raquo;</a>
 							</li>
 						</c:if>
+					</ul>
 
-					</c:forEach>
-					<c:if test="${to.curPage != to.totalPage}">
-						<li class="page-item">
-							<a class="page-link" href="/board/list?curPage=${(to.curPage+1) < to.totalPage? (to.curPage+1) : to.totalPage }">&raquo;</a>
-						</li>
-					</c:if>
-				</ul>
 				</div>
+				<!-- /페이징처리 -->
+	
+					<form action="/board/searchList" method="get">
+						<div class="input-group">
+							<span class="input-group-addon"> 
+								<select name="searchType">
+									<option disabled>검색기준</option>
+									<option value="writer">작성자</option>
+									<option value="title">제목</option>
+									<option value="content">내용</option>
+								</select>
+							</span> 
+							<input class="form-control" name="keyword"> <span
+								class="input-group-btn">
+								<button class="btn btn-info">검색</button>
+							</span>
+						</div>
+					</form>
 
-			</form>
+				
+			</div>
 		</section>
 	</div>
 

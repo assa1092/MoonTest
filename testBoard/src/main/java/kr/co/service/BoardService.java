@@ -20,5 +20,7 @@ public interface BoardService {
 	public void delete(int bno) throws Exception;
 
 	public PageTO list(PageTO to) throws Exception;
+
+	public List<BoardVO> searchList(String searchType, String keyword);
 	
 }

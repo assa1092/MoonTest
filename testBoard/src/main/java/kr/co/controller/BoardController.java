@@ -2,6 +2,8 @@ package kr.co.controller;
 
 
 
+import java.util.List;
+
 import javax.inject.Inject;
 
 import org.slf4j.Logger;
@@ -110,6 +112,19 @@ public class BoardController {
 		logger.info("delete");
 		service.delete(bno);
 		return "redirect:/board/list";
+	}
+	
+	// 게시글 검색 리스트
+	@RequestMapping(value = "/searchList")
+	public String searchList(Model model, String searchType, String keyword) {
+		
+		List<BoardVO> list = service.searchList(searchType, keyword);
+		model.addAttribute("list", list);
+		model.addAttribute("searchType", searchType);
+		model.addAttribute("keyword", keyword);
+		System.out.println(list);
+		
+		return "/board/searchList";
 	}
 	
 

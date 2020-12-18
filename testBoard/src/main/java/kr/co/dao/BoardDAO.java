@@ -19,4 +19,6 @@ public interface BoardDAO {
 	public void delete(int bno);
 
 	public PageTO list(PageTO to);
+
+	public List<BoardVO> searchList(String searchType, String keyword);
 }

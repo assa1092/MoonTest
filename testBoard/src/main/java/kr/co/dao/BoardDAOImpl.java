@@ -1,6 +1,8 @@
 package kr.co.dao;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import javax.inject.Inject;
 
@@ -63,6 +65,21 @@ public class BoardDAOImpl implements BoardDAO {
 		}
 		return to;
 		
+	}
+
+	@Override
+	public List<BoardVO> searchList(String searchType, String keyword) {
+		
+		// SearchTO 클래스를 따로 만들어쓰거나( searchType, keyword 를 가진) 
+		// Map 을 이용해서 데이터를 보낸다.
+		// 검색된 리스트 페이징 처리를 위해서는 rowBounds까지 가지고 가야한다.
+		
+		Map<String, Object> map = new HashMap<String, Object>();
+		
+		map.put("searchType", searchType);
+		map.put("keyword", keyword);
+		
+		return sqlSession.selectList("boardMapper.searchList", map);
 	}
 
 }

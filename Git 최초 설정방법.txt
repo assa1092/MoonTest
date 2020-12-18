@@ -1,0 +1,39 @@
+출처 https://f5074.tistory.com/11
+
+(1) Git 사용법
+
+1. git 다운로드
+https://git-scm.com/downloads
+
+2. GIt 설치
+다운받은 Git-2.20.1-xx-bit.exe 실행 후 계속 Next 후 설치
+
+
+(2) Git 최초 설정
+1. cmd 창에 입력
+  git config --global user.name "사용자명"
+  git config --global user.email "이메일"
+2. 설정 확인
+  git config --list
+
+(3) Git 사용 방법
+1. cmd 창에서 자신이 관리하고 싶은 폴더로 이동(저는 C드라이브에서 Temp 폴더에 sample이라는 폴더를 만들었음)
+2. Git 시작 (입력 후 해당 폴더로 이동하면 .git이라는 폴더가 있음. 보이지 않는다면, 보기옵션에서 숨김파일 보기를 해줘야함)
+3. 임의의 파일 추가 (sample 폴더에 sample.txt파일을 추가함)
+4. Git Add, Commit
+  git add *
+  git commit -m "설명"
+  git status
+
+(4) GIthub 원격저장소에 올리기
+
+1. https://github.com/ 에 접속하여 회원가입
+2. New repository를 선택
+3. 원하는 repository name을 입력 후 Create repository 클릭
+=========================================
+repository 생성후 주소, url을 복사
+
+4. https://github.com/f5074/sample.git을 복사 후 cmd 창에 입력
+  git remote add origin https://github.com/f5074/sample.git
+  git push origin master
+5. Github 아이디와 비밀번호 입력 후 확인을 누르면 완료
