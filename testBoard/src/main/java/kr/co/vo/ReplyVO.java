@@ -1,7 +1,7 @@
 package kr.co.vo;
 
 import java.io.Serializable;
-import java.util.Date;
+
 
 public class ReplyVO implements Serializable {
 

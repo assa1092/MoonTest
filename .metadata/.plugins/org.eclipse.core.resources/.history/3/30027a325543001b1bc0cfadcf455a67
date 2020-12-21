@@ -1,0 +1,16 @@
+package kr.co.dao;
+
+import org.springframework.stereotype.Repository;
+
+import kr.co.vo.ReplyVO;
+
+@Repository
+public class ReplyDAOImpl  implements ReplyDAO{
+
+	@Override
+	public int insert(ReplyVO vo) {
+		// TODO Auto-generated method stub
+		return 0;
+	}
+
+}

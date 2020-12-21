@@ -90,18 +90,94 @@
 			</form>
 			
 			<div class="form-group" align="right">
+					<button id="replyBtn" class="btn btn-danger">댓 글</button>
 					<button id="updateBtn" class="btn btn-info">수 정</button>
 					<button id ="deleteBtn" class="btn btn-warning" >삭 제</button>
 					<button id ="listBtn" class="btn btn-primary" >목 록</button>
 			</div>
+			
+			<!-- 댓글버튼 누르면 댓글 작성화면 나오게...collagse toggle  -->
+			<div class="row">
+				<div id="myCollapse" class="collapse">
+					<div class="form-group">
+						<label for="replyer">작성자</label>
+						<input id="replyer" class="form-control">
+					</div>
+					
+					<div class="form-group">
+						<label for="replytext">내 용</label>
+						<input id="replytext" class="form-control">
+					</div>
+					
+					<div class="form-group"  style="text-align : right" >
+						<button id="replyInsertBtn" class="btn btn-primary">댓글 등록</button>
+					</div>	
+				</div>
+			</div>
+			
+				<!-- 덮어쓰기 할꺼라 없는거나 마찬가지 -->
+		<div id="replies" class="row">
+			<div class="panel panel-success">
+				<div class="panel-heading">
+					<span>rno: 3 </span>, <span>작성자 : 홍길동</span>
+					<!-- class="pull-right" 오른쪽으로 붙게... -->
+					<span class="pull-right">2020년07월07일...</span>
+				</div>
+				<div class="panel-body">
+					<p>댓글 내용입니다</p>
+					<button data-name="홍길동" data-rno="3" class="btn btn-warning btn-xs replymodify">수정</button>
+					<button data-rno="3" class="btn btn-danger btn-xs replydelete">삭제</button>
+				</div>
+			</div>
+		</div><!-- class = row -->
+		
+		
+		
+		
+			<div class="row">
+		<div data-backdrop="static" id="myModal" class="modal fade" tabindex="-1" role="dialog">
+			<div class="modal-dialog" role="document">
+				<div class="modal-content">
+					<div class="modal-header">
+						<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+							<span aria-hidden="true">&times;</span>
+						</button>
+						<h4 class="modal-rno">rno 데이터</h4>
+					</div>
+					<div class="modal-body">
+						<p class="modal-replyer">홍길동</p>
+						<input value="댓글내용입니다" class="form-control modal-replytext"/>
+					</div>
+					<div class="modal-footer">
+						<button type="button" class="btn btn-warning modal-update-btn" 
+								data-dismiss="modal">댓글수정</button>
+						
+					</div>
+				</div><!-- /.modal-content -->
+			</div><!-- /.modal-dialog -->
+		</div><!-- /.modal -->
+	</div>
+			
 		</section>
+		
+		
+		
 	</div>
 	
 <script type="text/javascript">
+
+	// script안에서...var 를 안붙이면 전역변수로 사용할수있다...
+	var bno = ${read.bno};	
+	
+	// 글 자세히 보기로 들어오면 원글에 달린 댓글 가져온다..
+	getList(bno);
+
 	$(document).ready(function(){
+		// 게시글 수정
 		$("#updateBtn").click(function(){
 			location.assign("/board/updateView/${read.bno}");
 		});
+		// 게시글 삭제
 		$("#deleteBtn").click(function(){
 
 			var result = confirm('삭제하시겠습니까'); 
@@ -110,10 +186,97 @@
 			} else { }
 			
 		});
+
+		// 목록으로
 		$("#listBtn").click(function(){
 			location.assign("/board/list");
 		});
+
+		// 댓글 수정버튼 클릭시 모달창 띄우기
+		$("#replies").on("click", ".replymodify", function(){
+			// $(this) 지금 클릭한 요소...
+			// 그 요소의 속성...$(this).attr("data-rno");
+			// 그 값을 변수로 받아서 쓴다.
+			var rno = $(this).attr("data-rno");
+			var replyer = $(this).attr("data-name")
+			var replytext = $(this).prev().text();	
+			//  $(this).prev()내가 방금 누른곳의 바로 앞 태그...<p>
+			//  그 태그의 내용 $(this).prev().text();	
+			
+			$(".modal-rno").text(rno);
+			$(".modal-replyer").text(replyer);
+			// <input> 태그라 .val();
+			$(".modal-replytext").val(replytext);
+
+			// 댓글 수정 누르면 모달 창 보이게.
+			$("#myModal").modal("show");
+			
+
+		});
+
+		// 댓글 버튼 클릭시 작성폼 토글
+		$("#replyBtn").click(function(){
+			$("#myCollapse").collapse("toggle");
+		});
+
+		// 댓글 작성 버튼 클릭시
+		$("#replyInsertBtn").click(function(){
+			var replyer = $("#replyer").val();
+			var replytext = $("#replytext").val();
+			$.ajax({
+				type : 'post',
+				url : '/replies',
+				headers : {
+					'Content-Type' : 'application/json',
+					'X-HTTP-Method-Override' : 'POST'
+				},
+				dataType : 'text',
+				data : JSON.stringify({
+					bno : bno,
+					replyer : replyer,
+					replytext : replytext
+				}),
+				success : function(result){
+					console.log(result);
+
+					// 댓글 등록 성공시 작성자, 내용 빈칸으로
+					$("#replyer").val("");
+					$("#replytext").val("");
+
+					// 댓글 리스트 새로 가져오기
+					getList(bno);				
+				},
+				error : function(request, status, error){
+					console.log(error);
+				}
+			});
+		});
+
+		
 	});
+
+
+	// 댓글 리스트 가져오기
+	function getList(bno){
+		var str = '';
+		// JSON 파일 읽어올때...getJSON(1, 2)
+		// 1. 어디로, 2.성공했을때 하는일
+		$.getJSON("/replies/all/"+ bno, function(data){
+			// 댓글이 여러개 달릴경우 같아져 버리기 때문에..
+			// id 로 지정할 수가 없다...
+			// 그래서 클래스명으로 접근한다...
+			for(var i=0 ; i < data.length ; i++){
+				str += '<div class="panel panel-success"><div class="panel-heading"><span>rno: '+ data[i]["rno"] +' </span>, <span>작성자 : '+ data[i]["replyer"]+'</span><span class="pull-right">'+ data[i]["updatedate"] +'</span></div><div class="panel-body"><p>'+ data[i]["replytext"]+'</p><button data-name = "'+data[i]["replyer"]+'" data-rno="'+data[i]["rno"]+'"  class="btn btn-warning btn-xs replymodify">수정</button><button data-rno="'+data[i]["rno"]+'"  class="btn btn-danger btn-xs replydelete">삭제</button></div></div>'; 
+			}
+
+			$("#replies").html(str);	
+			// id가 replies의 html을 str으로 덮어씌우기...
+			// 추가하고 싶으면 .append()
+			
+			
+		});
+		
+	}
 </script>
 
 </body>
