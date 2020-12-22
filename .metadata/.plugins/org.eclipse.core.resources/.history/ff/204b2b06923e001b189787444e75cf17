@@ -1,8 +1,0 @@
-package kr.co.dao;
-
-public interface BoardDAO {
-	
-	// 게시글 작성
-	
-
-}

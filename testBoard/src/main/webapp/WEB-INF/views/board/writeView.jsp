@@ -25,7 +25,9 @@
 		</header>
 		<hr />
 
-		<nav>홈 - 글 작성</nav>
+		<div>
+				<%@include file="nav.jsp" %>
+		</div>
 		<hr />
 
 
@@ -59,6 +61,8 @@
 					</tbody>
 				</table>
 			 -->
+			 
+			 <c:if test="${member.userId != null }">
 				<div class="form-group">
 					<label for="title">제목</label>
 					<!-- for="title" 제목 클릭시 name="title"으로 포커스 가게... -->
@@ -75,12 +79,18 @@
 					<label for="content">내용</label>
 					<textarea rows="5" name="content" id="content" class="form-control check"  title="내용을 입력하세요"></textarea>
 				</div>
+				
+				<div class="form-group" align="right">
+						<button id="writeBtn" class="btn btn-info">작 성</button>
+						<button id ="listBtn" class="btn btn-warning" >목 록</button>
+				</div>
+			</c:if>
+			<c:if test="${member.userId == null}">
+								<p>로그인 후에 작성하실 수 있습니다.</p>
+			</c:if>
 			</form>
 			
-			<div class="form-group" align="right">
-					<button id="writeBtn" class="btn btn-info">작 성</button>
-					<button id ="listBtn" class="btn btn-warning" >목 록</button>
-			</div>
+			
 		</section>
 
 

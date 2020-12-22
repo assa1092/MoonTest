@@ -21,7 +21,9 @@
 		</header>
 		<hr />
 
-		<nav>홈 - 글 수정</nav>
+		<div>
+				<%@include file="nav.jsp" %>
+		</div>
 		<hr />
 
 

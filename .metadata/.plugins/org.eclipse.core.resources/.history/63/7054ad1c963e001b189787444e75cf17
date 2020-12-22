@@ -1,9 +1,0 @@
-package kr.co.dao;
-
-public interface BoardDAO {
-	
-	// 게시글 작성
-	public void write(BoardDAO boardVO);
-		
-
-}

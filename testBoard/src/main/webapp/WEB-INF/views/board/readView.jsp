@@ -24,7 +24,9 @@
 		</header>
 		<hr />
 
-		<nav>홈 - 글 작성</nav>
+		<div>
+				<%@include file="nav.jsp" %>
+		</div>
 		<hr />
 
 		<section id="container" class="container">
@@ -142,10 +144,13 @@
 						<button type="button" class="close" data-dismiss="modal" aria-label="Close">
 							<span aria-hidden="true">&times;</span>
 						</button>
+						<label>번 호 : </label>
 						<h4 class="modal-rno">rno 데이터</h4>
 					</div>
 					<div class="modal-body">
+					<label>작성자 : </label>
 						<p class="modal-replyer">홍길동</p>
+						<label>내 용 : </label>
 						<input value="댓글내용입니다" class="form-control modal-replytext"/>
 					</div>
 					<div class="modal-footer">
@@ -247,6 +252,60 @@
 					getList(bno);				
 				},
 				error : function(request, status, error){
+					console.log(error);
+				}
+			});
+		});
+
+		// 댓글 수정
+		$(".modal-update-btn").click(function(){
+			var rno = $(".modal-rno").text();
+			var replytext = $(".modal-replytext").val();	// input 박스라 .val()
+
+			$.ajax({
+				type : 'put',  // 수정할때는 put, 삭제는 delete
+				url : "/replies/" + rno,
+				headers : {
+					'Content-Type' : 'application/json',
+					'X-HTTP-Method-Override' : 'PUT'
+				},
+				dataType : 'text',
+				data : JSON.stringify({
+					replytext : replytext
+				}),
+				success : function(result){
+						console.log("댓글 수정 완료")
+						getList(bno);
+				},
+				error : function(request, status, error){
+					console.log(error)
+				}
+			});
+		});
+
+		// 댓글 삭제
+		$("#replies").on("click", ".replydelete", function(){
+			var rno = $(this).attr("data-rno");
+			var result = confirm('삭제하시겠습니까?'); 
+			if(!result) { 
+				return
+			} 
+			
+			$.ajax({
+				type : 'delete',
+				url : "/replies",
+				headers : {
+					'Content-Type' : 'application/json',
+					'X-HTTP-Method-Override' : 'DELETE'
+				},
+				dataType : 'text',
+				data : JSON.stringify({
+					rno : rno
+				}),
+				success : function(result){
+					getList(bno);
+				},
+				error : function(request, status, error) {
 					console.log(error);
 				}
 			});

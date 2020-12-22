@@ -1,11 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <section name="Workbench">
 	<section name="NewWizardAction">
-		<item key="NewWizardSelectionPage.STORE_SELECTED_ID" value="org.eclipse.wst.xml.ui.internal.wizards.NewXMLWizard"/>
+		<item key="NewWizardSelectionPage.STORE_SELECTED_ID" value="org.eclipse.jst.jsp.ui.internal.wizard.NewJSPWizard"/>
 		<list key="NewWizardSelectionPage.STORE_EXPANDED_CATEGORIES_ID">
-			<item value="org.eclipse.jst.ws.ui.new"/>
-			<item value="org.eclipse.wst.XMLCategory"/>
-			<item value="org.eclipse.ui.Examples"/>
+			<item value="org.eclipse.wst.web.ui"/>
 		</list>
 	</section>
 	<section name="org.eclipse.ui.internal.QuickAccess">
@@ -14,16 +12,16 @@
 		<item key="org.eclipse.ui.internal.quickaccess.QuickAccessDialogDIALOG_USE_PERSISTED_SIZE" value="true"/>
 		<item key="org.eclipse.ui.internal.quickaccess.QuickAccessDialogDIALOG_USE_PERSISTED_LOCATION" value="false"/>
 		<list key="orderedElements">
-			<item value="@/board/*/readView/{bno} -- GET@file:///C:/Users/ACE/sts-workspace/testBoard/src/main/java/kr/co/controller/BoardController.java[79,1:79,71],2031848103"/>
+			<item value="search.in.help"/>
 		</list>
 		<list key="orderedProviders">
-			<item value="org.eclipse.lsp4e/org.eclipse.lsp4e.operations.symbols.WorkspaceSymbolsQuickAccessProvider"/>
+			<item value="search.help"/>
 		</list>
 		<list key="textEntries">
 			<item value="1"/>
 		</list>
 		<list key="textArray">
-			<item value="readvie"/>
+			<item value="session.invalidate"/>
 		</list>
 	</section>
 </section>

@@ -26,6 +26,7 @@ public class ReplyRestController {
 			return "Reply Success";
 		} else {
 			return "Reply Fail";
+			
 		}
 	}
 	
@@ -33,6 +34,28 @@ public class ReplyRestController {
 	public List<ReplyVO> list(@PathVariable("bno") int bno){
 		List<ReplyVO> list= rService.list(bno);
 		return list;
+	}
+	
+	@RequestMapping(value = "/replies/{rno}", method = RequestMethod.PUT)
+	public String update(@PathVariable("rno") int rno, @RequestBody ReplyVO vo) {
+		vo.setRno(rno);
+		int isSuccess = rService.update(vo);
+		
+		if(isSuccess ==1) {
+			return "Reply Update Success";
+		}
+		
+		return "Reply Updata Fail";
+	}
+	
+	@RequestMapping(value = "/replies", method = RequestMethod.DELETE)
+	public String delete(@RequestBody ReplyVO vo) {
+		int isSuccess = rService.delete(vo.getRno());
+		
+		if(isSuccess == 1) {
+			return "Reply Delete Success";
+		}
+		return "Reply Delelte Fail";
 	}
 
 }
