@@ -10,5 +10,9 @@ public interface MemberDAO {
 
 	void memberUpdate(MemberVO vo) throws Exception;
 
+	void memberDelete(MemberVO vo) throws Exception;
+
+	int passCheck(MemberVO vo) throws Exception;
+
 
 }

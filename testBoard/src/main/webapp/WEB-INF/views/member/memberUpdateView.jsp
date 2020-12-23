@@ -20,7 +20,7 @@
 	<form action="/member/memberUpdate" method="post">
 		<div class="form-group has-feedback">
 			<label class="control-label" for="userId">아이디</label>
-			<input class="form-control" type="text" id="userId" name="userId" value="${member.userId }">
+			<input class="form-control" type="text" id="userId" name="userId" readonly value="${member.userId }">
 		</div>
 		<div class="form-group has-feedback">
 			<label class="control-label" for="userPass">패스워드</label>
@@ -32,32 +32,35 @@
 		</div>
 		<div class="form-group has-feedback" align="right">
 			<button class="btn btn-success" type="submit" id="submit">회원정보 수정</button>
-			<button class="cencle btn btn-danger" type="button">취소</button>
+			<button class="btn btn-danger" type="button" id ="cancle">취소</button>
 		</div>
 	</form>
 
 </section>
 
 <script type="text/javascript">
-	$(documemt).ready(function(){
-		$(".cencle").on("click", function(){
-			location.href="/";
-		});
-		$("#submit").on("click", function(){
-			if($("#userPass").val() == ""){
-				alert("비밀번호를 입력해 주세요.");
-				$("#userPass").focus();
-				return false;
-			}
-			if($("#userName").val() == ""){
-				alert("성명을 입력해주세요.");
-				$("#userName").focus();
-				return false;
-			}
-		});
-	});
+    $(document).ready(function(){
+        // 취소
+        $("#cancle").on("click", function(){
+            location.href = "/";
+        })
+    
+        $("#submit").on("click", function(){
+            if($("#userPass").val()==""){
+                alert("비밀번호를 입력해주세요.");
+                $("#userPass").focus();
+                return false;
+            }
+            if($("#userName").val()==""){
+                alert("성명을 입력해주세요.");
+                $("#userName").focus();
+                return false;
+            }
+        });
+        
+            
+        
+    })
 </script>
-
-
 </body>
 </html>

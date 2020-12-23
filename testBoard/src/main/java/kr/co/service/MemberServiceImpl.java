@@ -29,4 +29,15 @@ public class MemberServiceImpl implements MemberService {
 		mDao.memberUpdate(vo);
 		
 	}
+
+	@Override
+	public void memberDelete(MemberVO vo) throws Exception {
+		mDao.memberDelete(vo);
+		
+	}
+
+	@Override
+	public int passCheck(MemberVO vo) throws Exception {
+		return mDao.passCheck(vo);
+	}
 }

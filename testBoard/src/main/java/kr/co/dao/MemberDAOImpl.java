@@ -22,12 +22,23 @@ public class MemberDAOImpl implements MemberDAO {
 
 	@Override
 	public MemberVO login(MemberVO vo) throws Exception {
-		return session.selectOne(NS+".login", vo);
+		return session.selectOne(NS + ".login", vo);
 	}
 
 	@Override
 	public void memberUpdate(MemberVO vo) throws Exception {
-		session.update(NS + "memberUpdate", vo);		
+		session.update(NS + ".memberUpdate", vo);		
+	}
+
+	@Override
+	public void memberDelete(MemberVO vo) throws Exception {
+		session.delete(NS + ".memberDelete", vo);
+		
+	}
+
+	@Override
+	public int passCheck(MemberVO vo) throws Exception {
+		return session.selectOne(NS + ".passCheck", vo);
 	} 
 
 }

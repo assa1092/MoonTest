@@ -1,0 +1,26 @@
+<script type="text/javascript">
+		$(document).ready(function(){
+			// 취소
+			$(".cencle").on("click", function(){
+				
+				location.href = "/";
+						    
+			})
+		
+			$("#submit").on("click", function(){
+				if($("#userPass").val()==""){
+					alert("비밀번호를 입력해주세요.");
+					$("#userPass").focus();
+					return false;
+				}
+				if($("#userName").val()==""){
+					alert("성명을 입력해주세요.");
+					$("#userName").focus();
+					return false;
+				}
+			});
+			
+				
+			
+		})
+	</script>
