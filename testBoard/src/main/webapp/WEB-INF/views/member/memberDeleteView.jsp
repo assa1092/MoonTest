@@ -16,7 +16,7 @@
 </head>
 <body>
 	<section id="container">
-		<form action="/member/memberDelete" method="post">
+		<form action="/member/memberDelete" method="post" id="deleteForm">
 			<div class="form-group has-feedback">
 				<label class="control-label" for="userId">아이디</label>
 				<input class="form-control" type="text" id="userId" name="userId" readonly value="${member.userId }">
@@ -29,11 +29,11 @@
 				<label class="control-label" for="userName">성 명 </label>
 				<input class="form-control" type="text" id="userName" name="userName" readonly value="${member.userName }">
 			</div>
-			<div class="form-group has-feedback">
-					<button class="btn btn-success" type="submit" id="submit">회원탈퇴</button>
-					<button class="cancle btn btn-danger" type="button">취소</button>
-			</div>
 		</form>
+			<div class="form-group has-feedback">
+					<button class="btn btn-success"type="button"  id="memberDeleteBtn">회원탈퇴</button>
+					<button class="btn btn-danger" type="button" id="cancle">취소</button>
+			</div>
 		<div>
 			<c:if test="${msg == false }">
 				비밀번호가 맞지 않습니다.
@@ -44,19 +44,37 @@
 	
 <script type="text/javascript">
 	$(document).ready(function(){
-		$(".cancle").on("click",function(){
+		$("#cancle").on("click",function(){
 			location.href="/";
 		})
-		$("#submit").on("click", function(){
+		$("#memberDeleteBtn").on("click", function(){
+						
 			if($("#userPass").val() == ""){
 				alert("비밀번호를 입력해주세요.");
 				$("#userPass").focus();
+				return false;
 			}
+			$.ajax({
+				type : 'post',
+				url : "/member/passCheck",
+				dataType : 'json',
+				data : $("#deleteForm").serializeArray() ,
+				success : function(data){
+					if(data == true){
+						if(confirm("정말 탈퇴하시겠습니까?")){
+							$("#deleteForm").submit();
+						}
+					} else {
+						alert("패스워드가 틀렸습니다.");
+						return false;
+					}
+				},
+				error : function(request, status, error){
+	                    console.log(error);
+	                }
+			});
 			
-			var isDelete = confirm("정말 탈퇴하겠습니까?")
-			if(!isDelete){
-				location.href="/";
-			}
+		
 		})
 	})
 </script>

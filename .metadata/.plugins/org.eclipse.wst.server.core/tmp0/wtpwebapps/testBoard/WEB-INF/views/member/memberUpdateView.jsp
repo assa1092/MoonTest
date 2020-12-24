@@ -17,7 +17,7 @@
 <body>
 
 <section id="container" class="container">
-	<form action="/member/memberUpdate" method="post">
+	<form action="/member/memberUpdate" method="post" id="updateForm">
 		<div class="form-group has-feedback">
 			<label class="control-label" for="userId">아이디</label>
 			<input class="form-control" type="text" id="userId" name="userId" readonly value="${member.userId }">
@@ -30,11 +30,11 @@
 			<label class="control-label" for="userName">성 명</label>
 			<input class="form-control" type="text" id="userName" name="userName" value="${member.userName }">
 		</div>
+	</form>
 		<div class="form-group has-feedback" align="right">
-			<button class="btn btn-success" type="submit" id="submit">회원정보 수정</button>
+			<button class="btn btn-success" type="button" id="updateBtn">회원정보 수정</button>
 			<button class="btn btn-danger" type="button" id ="cancle">취소</button>
 		</div>
-	</form>
 
 </section>
 
@@ -45,7 +45,7 @@
             location.href = "/";
         })
     
-        $("#submit").on("click", function(){
+        $("#updateBtn").on("click", function(){
             if($("#userPass").val()==""){
                 alert("비밀번호를 입력해주세요.");
                 $("#userPass").focus();
@@ -56,6 +56,27 @@
                 $("#userName").focus();
                 return false;
             }
+            $.ajax({
+                type : 'post',
+                url : "/member/passCheck",
+                dataType: 'json',
+                data : $("#updateForm").serializeArray() ,
+                success : function(data){
+                    if(data == true){
+                        if(confirm("회원정보를 수정하시겠습니까?")){
+                            $("#updateForm").submit();
+                        }
+                    } else {
+                        alert("패스워드가 틀렸습니다.");
+                        return;
+                    }
+                },
+                error : function(request, status, error){
+                    console.log(error);
+                }
+                
+            })
+            
         });
         
             
