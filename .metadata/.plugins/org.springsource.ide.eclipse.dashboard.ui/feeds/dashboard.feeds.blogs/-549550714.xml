@@ -5,7 +5,21 @@
   <link rel="self" href="https://spring.io/blog.atom" />
   <id>http://spring.io/blog.atom</id>
   <icon>https://spring.io/favicon.ico</icon>
-  <updated>2020-12-23T16:11:00Z</updated>
+  <updated>2020-12-24T11:18:54Z</updated>
+  <entry>
+    <title>A Bootiful Podcast: Alibaba's San-Hong Li on tuning OpenJDK for Alibaba Scale</title>
+    <link rel="alternate" href="https://spring.io/blog/2020/12/24/a-bootiful-podcast-alibaba-s-san-hong-li-on-tuning-openjdk-for-alibaba-scale" />
+    <category term="engineering" label="Engineering" />
+    <author>
+      <name>Josh Long</name>
+    </author>
+    <id>tag:spring.io,2020-12-24:4313</id>
+    <updated>2020-12-24T11:18:54Z</updated>
+    <content type="html">&lt;p&gt;Hi, Spring fans! This week &lt;a href="http://twitter.com/starbuxman"&gt;Josh Long (@starbuxman)&lt;/a&gt; talks to Alibaba&amp;rsquo;s &lt;a href="http://twitter.com/SanHong_li"&gt;San-Hong Li (@SanHong_Li)&lt;/a&gt; on tuning OpenJDK for Alibaba-scale. &lt;/p&gt;
+&lt;p&gt;Merry Christmas / Happy Holidays to you! &lt;/p&gt;
+&lt;iframe title="Alibaba's San-Hong Li on tuning OpenJDK for Alibaba Scale" height="122" width="100%" style="border: none;" scrolling="no" data-name="pb-iframe-player" src="https://www.podbean.com/media/player/n9hns-f5d984?from=pb6admin&amp;download=1&amp;version=1&amp;auto=0&amp;share=1&amp;download=1&amp;rtl=0&amp;fonts=Helvetica&amp;skin=1&amp;pfauth=&amp;btn-skin=107"&gt;&lt;/iframe&gt;
+&lt;!-- rendered by Sagan Renderer Service --&gt;</content>
+  </entry>
   <entry>
     <title>Cloud Events and Spring - part 2</title>
     <link rel="alternate" href="https://spring.io/blog/2020/12/23/cloud-events-and-spring-part-2" />
@@ -57,7 +71,9 @@ public static class SampleApplication&#xD;
 &lt;pre&gt;&lt;code class="prettyprint json"&gt;. . .&#xD;
 {&amp;quot;person&amp;quot;:{&amp;quot;firstName&amp;quot;:&amp;quot;John&amp;quot;,&amp;quot;lastName&amp;quot;:&amp;quot;Doe&amp;quot;},&amp;quot;id&amp;quot;:172,&amp;quot;message&amp;quot;:&amp;quot;Employee 172 was hired on 17-12-2020&amp;quot;}
 &lt;/code&gt;&lt;/pre&gt;
-&lt;p&gt;Well&amp;hellip; . This really had nothing to do with Cloud Events! Right&amp;hellip;?&lt;br/&gt;Correct, but the capabilities of the framework to expose a function as a REST endpoint, to take care of type conversion, invocation, and other non-functional aspects are clear and have direct relevance to Cloud Events. Read on&amp;hellip;&lt;br/&gt;And, yes, at the center of such enablement is &lt;a href="https://docs.spring.io/spring-framework/docs/current/javadoc-api/org/springframework/messaging/Message.html"&gt;Message&lt;/a&gt; - a structure and a type that lets an incoming HTTP (or any other) request take on a canonical form so that other frameworks can deal with its contents, regardless of its origin or destination.&lt;/p&gt;
+&lt;p&gt;&lt;em&gt;Well&amp;hellip; . This really had nothing to do with Cloud Events! Right&amp;hellip;?&lt;/em&gt;&lt;/p&gt;
+&lt;p&gt;Correct, but the capabilities of the framework to expose a function as a REST endpoint, to take care of type conversion, invocation, and other non-functional aspects are clear and have direct relevance to Cloud Events. Read on&amp;hellip;&lt;/p&gt;
+&lt;p&gt;At the center of such enablement is &lt;a href="https://docs.spring.io/spring-framework/docs/current/javadoc-api/org/springframework/messaging/Message.html"&gt;Message&lt;/a&gt; - a structure and a type that lets an incoming HTTP (or any other) request take on a canonical form so that other frameworks can deal with its contents in uniformed way, regardless of its origin or destination.&lt;/p&gt;
 &lt;p&gt;&lt;em&gt;But wait, what about Cloud Events?&lt;/em&gt;&lt;/p&gt;
 &lt;p&gt;Let&amp;rsquo;s turn this HTTP request into a Cloud Event by adding HTTP headers that represent the required Cloud Event attributes. Note that these headers are prefixed with a &lt;code&gt;ce-&lt;/code&gt; prefix required by the &lt;a href="https://github.com/cloudevents/spec/blob/v1.0.1/http-protocol-binding.md"&gt;HTTP Protocol Binding&lt;/a&gt; part of the Cloud Event specification.&lt;/p&gt;
 &lt;pre&gt;&lt;code class="prettyprint bash"&gt;curl -w&amp;#39;\n&amp;#39; localhost:8080/hire \&#xD;
@@ -82,7 +98,7 @@ Date: Thu, 17 Dec 2020 13:29:31 GMT&#xD;
 {&amp;quot;person&amp;quot;:{&amp;quot;firstName&amp;quot;:&amp;quot;John&amp;quot;,&amp;quot;lastName&amp;quot;:&amp;quot;Doe&amp;quot;},&amp;quot;id&amp;quot;:171,&amp;quot;message&amp;quot;:&amp;quot;Employee 171 was hired on 17-12-2020&amp;quot;}
 &lt;/code&gt;&lt;/pre&gt;
 &lt;p&gt;&lt;em&gt;But how?&lt;/em&gt;&lt;/p&gt;
-&lt;p&gt;This is the part where, once again, we mention our commitment to outsource non-functional aspects to the frameworks, as this is one of them. So, by default (established by the framework) we assume that, if a request were a Cloud Event, the response is expected to be a Cloud Event as well. You can also see that the four required Cloud Event attributes have values that were also generated by following certain default rules established by the framework. The &lt;code&gt;specversion&lt;/code&gt; defaults to &lt;code&gt;1.0&lt;/code&gt;, the &lt;code&gt;type&lt;/code&gt; to the type name of the returned object, the &lt;code&gt;id&lt;/code&gt; to the generated &lt;code&gt;UUID&lt;/code&gt; (to provide a reasonably safe expectation of uniqueness), and the &lt;code&gt;source&lt;/code&gt; to &lt;code&gt;http://spring.io/&lt;/code&gt;.&lt;/p&gt;
+&lt;p&gt;This is the part where, once again, we remind you of our commitment to outsource non-functional aspects to the frameworks, as this is one of them. So, by default (established by the framework) we assume that, if a request were a Cloud Event, the response is expected to be a Cloud Event as well. You can also see that the four required Cloud Event attributes have values that were also generated by following certain default rules established by the framework. The &lt;code&gt;specversion&lt;/code&gt; defaults to &lt;code&gt;1.0&lt;/code&gt;, the &lt;code&gt;type&lt;/code&gt; to the type name of the returned object, the &lt;code&gt;id&lt;/code&gt; to the generated &lt;code&gt;UUID&lt;/code&gt; (to provide a reasonably safe expectation of uniqueness), and the &lt;code&gt;source&lt;/code&gt; to &lt;code&gt;http://spring.io/&lt;/code&gt;.&lt;/p&gt;
 &lt;p&gt;&lt;em&gt;But I don&amp;rsquo;t like default values. I want my own and I want to add additional attributes?&lt;/em&gt;&lt;/p&gt;
 &lt;p&gt;As we mentioned in the &lt;a href="https://spring.io/blog/2020/12/10/cloud-events-and-spring-part-1"&gt;previous post&lt;/a&gt;: &lt;em&gt;&amp;ldquo;We also expose utilities, libraries, and configuration options that let you influence certain non-functional concerns, as doing so may still be required for a variety of reasons.&amp;rdquo;&lt;/em&gt;&lt;br/&gt;Here, you have two options.&lt;br/&gt;&lt;strong&gt;&lt;em&gt;First option:&lt;/em&gt;&lt;/strong&gt; You can change the function signature and return a &lt;code&gt;Message&amp;lt;Employee&amp;gt;&lt;/code&gt;, where you can add additional metadata (that is, Cloud Event attributes). Once the framework sees that that you returned a &lt;code&gt;Message&lt;/code&gt;, it does not attempt to do anything extra with regard to the metadata added by the user. That is the rule that actually applies to most if not all frameworks that rely on Spring Messaging. While this option is simple, it does leak non-functional aspects into your business logic. After all, you need to create an instance of &lt;code&gt;Message&lt;/code&gt;, you need to add headers that represent Cloud Event attributes (preferably with the correct &amp;ndash; specification mandated &amp;ndash; attribute prefix), and so on. But the biggest flaw for this option is that it would require you to change the signature of the function and mix functional and non-functional aspects together, which is a clear violation of the &lt;em&gt;separation of concerns&lt;/em&gt; rule.&lt;br/&gt;However, for the sake of argument, here is how you would do that:&lt;/p&gt;
 &lt;pre&gt;&lt;code class="prettyprint java"&gt;@Bean&#xD;
@@ -2687,29 +2703,6 @@ public static class SampleApplication&#xD;
 &lt;/div&gt;
 &lt;div class="paragraph"&gt;
 &lt;p&gt;&lt;a href="http://projects.spring.io/spring-vault/"&gt;Project Page&lt;/a&gt; | &lt;a href="https://github.com/spring-projects/spring-vault"&gt;GitHub&lt;/a&gt; | &lt;a href="https://github.com/spring-projects/spring-vault/issues"&gt;Issues&lt;/a&gt; | &lt;a href="https://github.com/spring-projects/spring-vault/releases/tag/2.3.0-RC1"&gt;Release &lt;code&gt;2.3.0-RC1&lt;/code&gt; on GitHub&lt;/a&gt; | &lt;a href="http://docs.spring.io/spring-vault/docs/2.3.0-RC1/reference/html/"&gt;Documentation for &lt;code&gt;2.3.0-RC1&lt;/code&gt;&lt;/a&gt; | &lt;a href="http://stackoverflow.com/questions/tagged/spring-vault"&gt;Stack Overflow&lt;/a&gt;&lt;/p&gt;
-&lt;/div&gt;
-&lt;!-- rendered by Sagan Renderer Service --&gt;</content>
-  </entry>
-  <entry>
-    <title>Spring Vault 2.2.3.RELEASE available</title>
-    <link rel="alternate" href="https://spring.io/blog/2020/12/10/spring-vault-2-2-3-release-available" />
-    <category term="releases" label="Releases" />
-    <author>
-      <name>Mark Paluch</name>
-    </author>
-    <id>tag:spring.io,2020-12-10:4293</id>
-    <updated>2020-12-10T13:07:19Z</updated>
-    <content type="html">&lt;div class="paragraph"&gt;
-&lt;p&gt;On behalf of the community, I&amp;#8217;d like to announce the availability of Spring Vault service release &lt;code&gt;2.2.3.RELEASE&lt;/code&gt;.&lt;/p&gt;
-&lt;/div&gt;
-&lt;div class="paragraph"&gt;
-&lt;p&gt;This release ships with mostly bugfixes, dependency upgrades, and selected features.&lt;/p&gt;
-&lt;/div&gt;
-&lt;div class="paragraph"&gt;
-&lt;p&gt;For a complete list of changes, see the &lt;a href="https://github.com/spring-projects/spring-vault/releases/tag/2.2.3.RELEASE"&gt;2.2.3.RELEASE changelog&lt;/a&gt;.&lt;/p&gt;
-&lt;/div&gt;
-&lt;div class="paragraph"&gt;
-&lt;p&gt;&lt;a href="http://projects.spring.io/spring-vault/"&gt;Project Page&lt;/a&gt; | &lt;a href="https://github.com/spring-projects/spring-vault"&gt;GitHub&lt;/a&gt; | &lt;a href="https://github.com/spring-projects/spring-vault/issues"&gt;Issues&lt;/a&gt; | &lt;a href="https://github.com/spring-projects/spring-vault/releases/tag/2.2.3.RELEASE"&gt;Release &lt;code&gt;2.2.3.RELEASE&lt;/code&gt; on GitHub&lt;/a&gt; | &lt;a href="http://docs.spring.io/spring-vault/docs/2.2.1.RELEASE/reference/html/"&gt;Documentation for &lt;code&gt;2.2.3.RELEASE&lt;/code&gt;&lt;/a&gt; | &lt;a href="http://stackoverflow.com/questions/tagged/spring-vault"&gt;Stack Overflow&lt;/a&gt;&lt;/p&gt;
 &lt;/div&gt;
 &lt;!-- rendered by Sagan Renderer Service --&gt;</content>
   </entry>

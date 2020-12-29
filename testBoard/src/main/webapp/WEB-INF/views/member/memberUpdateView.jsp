@@ -65,6 +65,8 @@
                     if(data == true){
                         if(confirm("회원정보를 수정하시겠습니까?")){
                             $("#updateForm").submit();
+                        } else {
+                        	$("#userName").focus();
                         }
                     } else {
                         alert("패스워드가 틀렸습니다.");

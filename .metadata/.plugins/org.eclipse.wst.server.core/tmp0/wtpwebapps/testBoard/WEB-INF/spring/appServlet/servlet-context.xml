@@ -21,6 +21,11 @@
 		<beans:property name="suffix" value=".jsp" />
 	</beans:bean>
 	
+		<!-- 파일업로드 객체 -->
+	<beans:bean id="multipartResolver" class="org.springframework.web.multipart.commons.CommonsMultipartResolver">
+		<beans:property value="1048760" name="maxUploadSize"></beans:property>
+	</beans:bean>
+	
 	<context:component-scan base-package="kr.co.controller" />
 	
 	

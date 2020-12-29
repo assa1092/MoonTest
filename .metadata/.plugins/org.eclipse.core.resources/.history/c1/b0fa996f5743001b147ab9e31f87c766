@@ -1,9 +1,0 @@
-package kr.co.service;
-
-import kr.co.vo.ReplyVO;
-
-public interface ReplyService {
-
-	int insert(ReplyVO vo);
-
-}

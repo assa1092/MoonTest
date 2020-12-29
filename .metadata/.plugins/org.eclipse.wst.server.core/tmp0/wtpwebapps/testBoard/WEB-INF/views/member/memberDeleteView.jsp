@@ -63,11 +63,16 @@
 					if(data == true){
 						if(confirm("정말 탈퇴하시겠습니까?")){
 							$("#deleteForm").submit();
+						} else {
+							$("#userPass").focus();
 						}
 					} else {
 						alert("패스워드가 틀렸습니다.");
 						return false;
 					}
+
+
+					
 				},
 				error : function(request, status, error){
 	                    console.log(error);

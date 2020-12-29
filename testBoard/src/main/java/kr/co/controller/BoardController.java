@@ -13,6 +13,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.multipart.MultipartHttpServletRequest;
 
 import kr.co.service.BoardService;
 import kr.co.vo.BoardVO;
@@ -29,23 +30,33 @@ public class BoardController {
 	BoardService service;
 	
 	// 게시팔 글 작성 화면
-	@RequestMapping(value = "/board/writeView", method = RequestMethod.GET)
+	@RequestMapping(value = "/writeView", method = RequestMethod.GET)
 	public void writeView() throws Exception{
 		logger.info("writeView");
 	}
 	
 	// 게시판 글 작성
-	@RequestMapping(value = "/board/write", method = RequestMethod.POST)
-	public String write(BoardVO boardVO) throws Exception {
-		logger.info("write");
-				
-		service.write(boardVO);
+	@RequestMapping(value = "/write", method = RequestMethod.POST) 
+	public	 String write(BoardVO boardVO) throws Exception { 
+		logger.info("write"); 
+		
+		service.write(boardVO); 
 		
 		return "redirect:/board/list";
 	}
 	
+	// 게시판 글 작성 + 첨부파일
+//	@RequestMapping(value = "/write", method = RequestMethod.POST)
+//	public String write(BoardVO boardVO, MultipartHttpServletRequest mpRequest) throws Exception {
+//		logger.info("write");
+//				
+//		service.write(boardVO, mpRequest);
+//		
+//		return "redirect:/board/list";
+//	}
+	
 	// 게시판 목록 조회
-	@RequestMapping(value = "/board/list", method = RequestMethod.GET)
+	@RequestMapping(value = "/list", method = RequestMethod.GET)
 	public String list(Model model, String curPage) throws Exception{
 //		logger.info("list");
 //				

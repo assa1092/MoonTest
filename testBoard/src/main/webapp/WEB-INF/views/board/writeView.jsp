@@ -16,6 +16,32 @@
 	src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
 
 <title>게시판</title>
+
+
+
+<style type="text/css">
+	.fileDrop{
+		width : 80%;
+		height : 200px;
+		border : 1px solid red;
+		margin : auto;
+	}
+	
+	.uploadedList {
+		margin-top : 50px;
+	}
+	
+	
+	.uploadedList li{
+		list-style : none;
+	}
+	.orifilename {
+		overflow : hidden;
+		white-space : nowrap;
+		text-overflow : ellipsis;
+	}
+
+</style>
 </head>
 
 <body>
@@ -80,6 +106,21 @@
 					<textarea rows="5" name="content" id="content" class="form-control check"  title="내용을 입력하세요"></textarea>
 				</div>
 				
+				
+				
+				
+			<div class="form-group">
+				<label>업로드할 파일을 드랍시키세요.</label>
+				<div class="fileDrop"></div>
+				<ul class = "uploadedList  clearfix"></ul>
+				<!-- 
+					<li class= "col-xs-2">
+						<a href="#"><img src="/resources/show.png"></a>
+						<p class="orifilename"><a>aaaa.txt<span class="glyphicon glyphicon-trash"></span></a></p>
+					</li>
+				-->
+			</div>
+				
 				<div class="form-group" align="right">
 						<button id="writeBtn" class="btn btn-info">작 성</button>
 						<button id ="listBtn" class="btn btn-warning" >목 록</button>
@@ -105,9 +146,59 @@
 			}
 			$("form").submit();			
 		});
+		
 		$("#listBtn").click(function(){
 			location.assign("/board/list");
 		});
+
+		$(".fileDrop").on("drop", function(event){
+			event.preventDefault();
+
+			var files = event.originalEvent.dataTransfer.files;
+			var file = files[0];
+
+			var formData = new FormData();
+
+			formData.append("file", file);
+
+			$.ajax({
+				type : 'post',
+				url : '/uploadajax',
+				dataType : 'text',
+				data : formData,
+				processData : false,
+				contentType : false,
+
+				success : function(result){
+					console.log(result);
+
+					var str ='<li class="col-xs-2">';
+
+					str += '<a href="/displayfile?filename='+getImageLink(result)+'">';
+
+					// 이미지 파일이면 썸네일 만들고
+					// 아니면 기본 아이콘으로 보이게
+					if(checkImage(result)){
+						str += '<img src ="/displayfile?filename='+result+'"/>';
+					} else {
+						str += '<img src = "/resources/imageShow.png"/>';
+					}
+
+					str += '</a>';
+					str += '<p class="orifilename">';
+
+					str += '<a href="'+result+'" class="deletefile"><span class="glyphicon glyphicon-trash"></span></a>';
+					str += getOriginalName(result);
+					str += '</p>';
+					str += '</li>';	
+
+
+					// 새로운것도 이이지게끔...append
+					// 덮어쓰기는 .html 
+					$(".uploadedList").append(str);	
+				},
+			});
+		})
 	});
 
 	// 제목, 작성자, 내용 Validation Check

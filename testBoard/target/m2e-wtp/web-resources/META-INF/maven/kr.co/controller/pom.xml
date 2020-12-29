@@ -185,7 +185,7 @@
     <version>4.2.1.RELEASE</version>
 </dependency>
 	
-	<!-- 암호화 적용  -->
+	
 	<!-- https://mvnrepository.com/artifact/com.fasterxml.jackson.core/jackson-databind -->
 <dependency>
     <groupId>com.fasterxml.jackson.core</groupId>
@@ -194,6 +194,7 @@
 </dependency>
 
 
+<!-- 암호화 Start  -->
       <!-- https://mvnrepository.com/artifact/org.springframework.security/spring-security-core -->
 <dependency>
     <groupId>org.springframework.security</groupId>
@@ -215,6 +216,24 @@
     <artifactId>spring-security-config</artifactId>
     <version>5.0.8.RELEASE</version>
 </dependency>
+<!-- 암호화 Start  -->
+
+
+<!-- 첨부파일 START-->
+<!-- MultipartHttpServletRequset -->
+ <dependency>
+	 <groupId>commons-io</groupId>
+	 <artifactId>commons-io</artifactId>
+	 <version>2.0.1</version>
+ </dependency>
+ 
+ <dependency>
+	 <groupId>commons-fileupload</groupId>
+	 <artifactId>commons-fileupload</artifactId>
+	 <version>1.2.2</version>
+ </dependency>
+
+<!-- 첨부파일 END -->
 
 
 		
