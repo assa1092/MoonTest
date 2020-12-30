@@ -10,6 +10,7 @@ import org.springframework.web.multipart.MultipartHttpServletRequest;
 
 import kr.co.dao.BoardDAO;
 import kr.co.util.FileUtils;
+import kr.co.vo.BoardDTO;
 import kr.co.vo.BoardVO;
 import kr.co.vo.PageTO;
 
@@ -59,6 +60,12 @@ public class BoardServiceImpl implements BoardService {
 	@Override
 	public List<BoardVO> searchList(String searchType, String keyword) {
 		return dao.searchList(searchType, keyword);
+	}
+
+	@Override
+	public void insertBoard(BoardDTO dto) {
+		dao.insertBoard(dto);
+		
 	}
 
 }

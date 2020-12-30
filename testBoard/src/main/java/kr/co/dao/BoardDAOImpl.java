@@ -10,6 +10,7 @@ import org.apache.ibatis.session.RowBounds;
 import org.apache.ibatis.session.SqlSession;
 import org.springframework.stereotype.Repository;
 
+import kr.co.vo.BoardDTO;
 import kr.co.vo.BoardVO;
 import kr.co.vo.PageTO;
 
@@ -80,6 +81,12 @@ public class BoardDAOImpl implements BoardDAO {
 		map.put("keyword", keyword);
 		
 		return sqlSession.selectList("boardMapper.searchList", map);
+	}
+
+	@Override
+	public void insertBoard(BoardDTO dto) {
+		sqlSession.insert("boardMapper.insertBoard", dto);
+		
 	}
 
 }

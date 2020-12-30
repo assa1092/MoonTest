@@ -2,6 +2,7 @@ package kr.co.dao;
 
 import java.util.List;
 
+import kr.co.vo.BoardDTO;
 import kr.co.vo.BoardVO;
 import kr.co.vo.PageTO;
 
@@ -21,4 +22,6 @@ public interface BoardDAO {
 	public PageTO list(PageTO to);
 
 	public List<BoardVO> searchList(String searchType, String keyword);
+
+	public void insertBoard(BoardDTO dto);
 }

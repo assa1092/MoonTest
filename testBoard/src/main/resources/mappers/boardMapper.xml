@@ -82,6 +82,12 @@
 	<select id="getAmount" resultType="Integer">
 		SELECT count(bno) FROM MP_BOARD
 	</select>
+	
+	<!-- 첨부파일 게시글 등록  -->
+	<insert id="insertBoard">
+		INSERT INTO boardtest(title, writer, content, reg_date, file_name)
+		VALUES ( #{title}, #{writer}, #{content}, #{fileName})
+	</insert>
 
    
 </mapper>

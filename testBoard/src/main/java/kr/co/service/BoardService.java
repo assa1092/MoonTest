@@ -2,8 +2,7 @@ package kr.co.service;
 
 import java.util.List;
 
-
-
+import kr.co.vo.BoardDTO;
 import kr.co.vo.BoardVO;
 import kr.co.vo.PageTO;
 
@@ -24,5 +23,7 @@ public interface BoardService {
 	public PageTO list(PageTO to) throws Exception;
 
 	public List<BoardVO> searchList(String searchType, String keyword);
+
+	public void insertBoard(BoardDTO dto);
 	
 }
